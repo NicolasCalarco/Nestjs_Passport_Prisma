@@ -1,9 +1,10 @@
 import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { Role } from '@prisma/client';
 
 export class CreateUserDto {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
 
   @IsString()
@@ -16,7 +17,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsOptional()
-  role: string;
+  role: Role;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

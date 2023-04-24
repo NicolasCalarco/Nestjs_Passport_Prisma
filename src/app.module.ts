@@ -9,6 +9,7 @@ import { UsersService } from './users/services/users.service';
 import { UsersModule } from './users/users.module';
 import { PrismaService } from 'src/database/prisma.service';
 import { AuthService } from 'src/auth/auth.service';
+import { SendGridModule } from './sendgrid/sendgrid.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AuthService } from 'src/auth/auth.service';
     AuthModule,
     DatabaseModule,
     UsersModule,
+    SendGridModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService, PrismaService, AuthService],

@@ -15,9 +15,37 @@ model user {
   name      String?
   email     String   @unique
   password  String
-  role      String   @default("User")
+  role      Role     @default(User)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model contacto {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  nombre    String
+  email     String
+  telefono  String
+  mensaje   String?
+  motivo    Motivo
+}
+
+model boletin {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String
+  is_active Boolean  @default(true)
+}
+
+enum Motivo {
+  Desarrollo_tecnologico
+  Transformacion_digital
+  Bussiness_intelligence
+  Soluciones_integrales
+  Reclamo
+  Otro
 }
 
 enum Role {
