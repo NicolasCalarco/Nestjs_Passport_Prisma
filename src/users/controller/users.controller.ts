@@ -14,11 +14,15 @@ import { User } from '../entities/users.entity';
 import { AuthGuard } from '../../auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { SendGridService } from 'src/sendgrid/sendgrid.service';
 
 @Controller('users')
 @UseGuards(AuthGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly sendGridService: SendGridService,
+  ) {}
 
   @Get(':id')
   async get(@Param('id') id: string): Promise<User> {
@@ -40,7 +44,12 @@ export class UsersController {
   @Public()
   @Post('/add')
   async create(@Body() payload: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(payload);
+    const user = await this.usersService.createUser(payload);
+    await this.sendGridService.sendActivationEmail({
+      email: user.email,
+      nombre: user.name,
+    });
+    return user;
   }
 
   @Put(':id')

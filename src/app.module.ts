@@ -10,6 +10,9 @@ import { UsersModule } from './users/users.module';
 import { PrismaService } from 'src/database/prisma.service';
 import { AuthService } from 'src/auth/auth.service';
 import { SendGridModule } from './sendgrid/sendgrid.module';
+import { ContactoModule } from './contacto/contacto.module';
+import { ContactoController } from './contacto/controller/contacto.controller';
+import { ContactoService } from './contacto/services/contacto.service';
 
 @Module({
   imports: [
@@ -20,8 +23,15 @@ import { SendGridModule } from './sendgrid/sendgrid.module';
     DatabaseModule,
     UsersModule,
     SendGridModule,
+    ContactoModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [AppService, UsersService, PrismaService, AuthService],
+  controllers: [AppController, UsersController, ContactoController],
+  providers: [
+    AppService,
+    UsersService,
+    PrismaService,
+    AuthService,
+    ContactoService,
+  ],
 })
 export class AppModule {}

@@ -28,7 +28,7 @@ model contacto {
   email     String
   telefono  String
   mensaje   String?
-  motivo    Motivo
+  motivo    Motivo  @default(Soluciones_integrales)
 }
 
 model boletin {
